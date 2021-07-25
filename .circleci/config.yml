@@ -1,0 +1,37 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2
+  helm: circleci/helm@1.2.0                 # Used to run helm commands.
+  assume-role: deo-kalule/assume-role@0.2.0 # Used to assume an aws role.
+  aws: circleci/aws-cli@2.0.3
+
+jobs:
+  deploy:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - aws/install
+      - helm/install-helm-client:
+          version: v3.6.3
+      - assume-role/assume-role:
+          role-arn: $ROLE_ARN
+          session-name: $CIRCLE_SHA1
+          profile: default
+      - run:
+          name: Install helm s3 plugin
+          command: |
+            helm plugin install https://github.com/hypnoglow/helm-s3.git;
+            helm s3 init $HELM_S3_BUCKET/ingress;
+            helm repo add apps $HELM_S3_BUCKET/ingress/;
+      - run:
+          name: Package and publish chart
+          command: |
+            helm package .;
+            helm s3 push ./ingress-0.1.0.tgz apps
+
+workflows:
+  helm:
+    jobs:
+      - deploy
