@@ -34,7 +34,9 @@ jobs:
             # Package up the project files.
             helm package .;
             # Push the packaged helm repository to S3.
-            helm s3 push ./ingress-0.1.1.tgz ingress
+            helm s3 push ./ingress-0.1.1.tgz ingress;
+            helm upgrade -f ingress.yaml ingress services/ingress --version 0.1.1 --install;
+
 
 workflows:
   helm:
