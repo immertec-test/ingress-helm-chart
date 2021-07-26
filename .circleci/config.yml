@@ -40,8 +40,7 @@ jobs:
             helm package .;
             # Push the packaged helm repository to S3.
             helm s3 push ./ingress-0.0.1.tgz ingress;
-            helm upgrade -f ingress.yaml ingress services/ingress --version 0.0.1 --install;
-
+            helm upgrade -f ingress.yaml ingress ingress/ingress --version 0.0.1 --install;
 
 workflows:
   helm:
