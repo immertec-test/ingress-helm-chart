@@ -1,10 +1,10 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@1.2
+  python: circleci/python@1.2               # Needed to run s3 helm plugin.
   helm: circleci/helm@1.2.0                 # Used to run helm commands.
   assume-role: deo-kalule/assume-role@0.2.0 # Used to assume an aws role.
-  aws: circleci/aws-cli@2.0.3
+  aws: circleci/aws-cli@2.0.3               # Needed to access s3.
 
 jobs:
   deploy:
@@ -16,20 +16,25 @@ jobs:
       - helm/install-helm-client:
           version: v3.6.3
       - assume-role/assume-role:
-          role-arn: $ROLE_ARN
-          session-name: $CIRCLE_SHA1
-          profile: default
+          role-arn: $ROLE_ARN        # The AWS role arn that we are assuming.
+          session-name: $CIRCLE_SHA1 # The commit SHA.
+          profile: default           # The name of the AWS profile.
       - run:
           name: Install helm s3 plugin
           command: |
+            # Install S3 helm charts plugin used to host charts in S3.
             helm plugin install https://github.com/hypnoglow/helm-s3.git;
+            # Initialize the ingress repository.
             helm s3 init $HELM_S3_BUCKET/ingress;
-            helm repo add apps $HELM_S3_BUCKET/ingress/;
+            # Add the local files in this project to populate the repo.
+            helm repo add ingress $HELM_S3_BUCKET/ingress/;
       - run:
           name: Package and publish chart
           command: |
+            # Package up the project files.
             helm package .;
-            helm s3 push ./ingress-0.1.0.tgz apps
+            # Push the packaged helm repository to S3.
+            helm s3 push ./ingress-0.1.1.tgz ingress
 
 workflows:
   helm:

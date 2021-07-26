@@ -5,10 +5,10 @@ ingress:
   annotations: 
     class: nginx
   hosts:
-    # - host: chart-example.local
-    - paths:
+    - host: circleci.immertec.red
+      paths:
         - path: /
           pathType: Prefix
           backend:
-            serviceName: serviceName
-            servicePort: 8080
+            serviceName: app
+            servicePort: 3000
