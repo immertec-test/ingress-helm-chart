@@ -5,5 +5,5 @@ ingress:
         - path: /
           pathType: Prefix
           backend:  
-            serviceName: app
+            serviceName: master
             servicePort: 3000
