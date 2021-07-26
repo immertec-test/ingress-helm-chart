@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@1.2               # Needed to run s3 helm plugin.
+  eks: circleci/aws-eks@1.1.0               # Used to control aws eks.
   helm: circleci/helm@1.2.0                 # Used to run helm commands.
   assume-role: deo-kalule/assume-role@0.2.0 # Used to assume an aws role.
   aws: circleci/aws-cli@2.0.3               # Needed to access s3.
@@ -19,6 +20,10 @@ jobs:
           role-arn: $ROLE_ARN        # The AWS role arn that we are assuming.
           session-name: $CIRCLE_SHA1 # The commit SHA.
           profile: default           # The name of the AWS profile.
+      # Authenticate kubernetes so that we can call kubectl commands.
+      - eks/update-kubeconfig-with-authenticator:
+          cluster-name: $CLUSTER_NAME # Kubernetes cluster name.
+          aws-region: $AWS_REGION
       - run:
           name: Install helm s3 plugin
           command: |
