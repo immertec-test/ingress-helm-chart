@@ -3,7 +3,7 @@ entries:
   ingress:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-07-30T10:18:21.882277-04:00"
+    created: "2021-07-30T14:19:48.78702-04:00"
     dependencies:
     - name: ingress-nginx
       repository: https://kubernetes.github.io/ingress-nginx
@@ -29,7 +29,7 @@ entries:
         - Add namespace field in the namespace scoped resource templates
     apiVersion: v2
     appVersion: 0.47.0
-    created: "2021-07-30T10:18:21.884224-04:00"
+    created: "2021-07-30T14:19:48.788985-04:00"
     description: Ingress controller for Kubernetes using NGINX as a reverse proxy
       and load balancer
     digest: 0f0f856ceef4c05023ac9d4ce1d1937711290059b33824a7c37f2c0810623fb6
@@ -48,4 +48,4 @@ entries:
     urls:
     - https://mattiaperi.github.io/helm-chart/charts/ingress-nginx-3.34.0.tgz
     version: 3.34.0
-generated: "2021-07-30T10:18:21.879942-04:00"
+generated: "2021-07-30T14:19:48.784192-04:00"
