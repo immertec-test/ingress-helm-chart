@@ -25,13 +25,10 @@ jobs:
           cluster-name: $CLUSTER_NAME # Kubernetes cluster name.
           aws-region: $AWS_REGION
       - run:
-          name: Install helm s3 plugin
+          name: Package and publish chart
           command: |
             # Add the local files in this project to populate the repo.
             helm repo add ingress https://immertec-test.github.io/ingress-helm-chart/;
-      - run:
-          name: Package and publish chart
-          command: |
             helm upgrade -f ingress.yaml ingress ingress/ingress --version 0.0.1 --install;
 
 workflows:
