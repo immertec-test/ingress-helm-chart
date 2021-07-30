@@ -27,7 +27,6 @@ jobs:
       - run:
           name: Package and publish chart
           command: |
-            cd test
             # Add the local files in this project to populate the repo.
             helm repo add ingress https://immertec-test.github.io/ingress-helm-chart/;
             helm search repo ingress;
