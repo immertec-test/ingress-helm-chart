@@ -27,19 +27,11 @@ jobs:
       - run:
           name: Install helm s3 plugin
           command: |
-            # Install S3 helm charts plugin used to host charts in S3.
-            helm plugin install https://github.com/hypnoglow/helm-s3.git;
-            # Initialize the ingress repository.
-            helm s3 init $HELM_S3_BUCKET/ingress;
             # Add the local files in this project to populate the repo.
-            helm repo add ingress $HELM_S3_BUCKET/ingress/;
+            helm repo add ingress https://immertec.github.io/ingress-helm-chart/;
       - run:
           name: Package and publish chart
           command: |
-            # Package up the project files.
-            helm package .;
-            # Push the packaged helm repository to S3.
-            helm s3 push ./ingress-0.0.1.tgz ingress;
             helm upgrade -f ingress.yaml ingress ingress/ingress --version 0.0.1 --install;
 
 workflows:
