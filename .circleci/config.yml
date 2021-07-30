@@ -29,8 +29,8 @@ jobs:
           command: |
             # Add the local files in this project to populate the repo.
             helm repo add ingress https://immertec-test.github.io/ingress-helm-chart/;
-            helm repo update;
-            helm upgrade -f ingress.yaml ingress ingress --install;
+            helm search repo ingress;
+            helm upgrade -f ingress.yaml ingress ingress/ingress --install;
 
 workflows:
   helm:
