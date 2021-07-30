@@ -1,0 +1,10 @@
+---
+ingress:
+  hosts:
+    - host: circleci.immertec.red
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:  
+            serviceName: app
+            servicePort: 3000
