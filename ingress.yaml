@@ -1,51 +1,10 @@
-apiVersion: v1
-entries:
-  ingress:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2021-07-30T10:18:21.882277-04:00"
-    dependencies:
-    - name: ingress-nginx
-      repository: https://kubernetes.github.io/ingress-nginx
-      version: 3.34.0
-    description: A Helm chart for Ingress Controller
-    digest: 2f2b69ba1f5dc23f78b51d2fc8b3db53853ac071402c5311abe9557d2635f52d
-    home: https://github.com/immertec-test/ingress-helm-chart
-    keywords:
-    - ingress
-    - nginx
-    - api-gateway
-    maintainers:
-    - name: Deo Kalule
-      url: https://github.com/deograstius
-    name: ingress
-    type: application
-    urls:
-    - https://mattiaperi.github.io/helm-chart/ingress-0.0.1.tgz
-    version: 0.0.1
-  ingress-nginx:
-  - annotations:
-      artifacthub.io/changes: |
-        - Add namespace field in the namespace scoped resource templates
-    apiVersion: v2
-    appVersion: 0.47.0
-    created: "2021-07-30T10:18:21.884224-04:00"
-    description: Ingress controller for Kubernetes using NGINX as a reverse proxy
-      and load balancer
-    digest: 0f0f856ceef4c05023ac9d4ce1d1937711290059b33824a7c37f2c0810623fb6
-    home: https://github.com/kubernetes/ingress-nginx
-    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
-    keywords:
-    - ingress
-    - nginx
-    kubeVersion: '>=1.16.0-0'
-    maintainers:
-    - name: ChiefAlexander
-    name: ingress-nginx
-    sources:
-    - https://github.com/kubernetes/ingress-nginx
-    type: application
-    urls:
-    - https://mattiaperi.github.io/helm-chart/charts/ingress-nginx-3.34.0.tgz
-    version: 3.34.0
-generated: "2021-07-30T10:18:21.879942-04:00"
+---
+ingress:
+  hosts:
+    - host: circleci.immertec.red
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: master
+            servicePort: 3000
