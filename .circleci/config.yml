@@ -28,9 +28,9 @@ jobs:
           name: Package and publish chart
           command: |
             # Add the local files in this project to populate the repo.
-            helm repo add badname https://immertec-test.github.io/ingress-helm-chart/;
-            helm search repo badname;
-            helm upgrade -f ingress.yaml ingress --version=0.0.1 badname/ingress --install;
+            helm repo add ingress https://immertec-test.github.io/ingress-helm-chart/;
+            helm search repo ingress;
+            helm upgrade -f ingress.yaml ingress --version=0.0.1 ingress/ingress --install;
 
 workflows:
   helm:
